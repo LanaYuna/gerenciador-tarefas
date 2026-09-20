@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tv_descricao_conta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Conta de luz"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_valor_conta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Valor: R$ 150,00"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_vencimento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Vencimento: 20/09/2026"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Status: Não paga"
+        android:textSize="16sp" />
+
+</LinearLayout>

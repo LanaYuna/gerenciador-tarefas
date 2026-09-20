@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tv_descricao_categoria"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Casa"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_quantidade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Quantidade: 5"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_valor_total"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Total: R$ 2.000,00"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_total_pago"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pago: R$ 1.200,00"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_restante"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Restante: R$ 800,00"
+        android:textSize="16sp" />
+
+</LinearLayout>
