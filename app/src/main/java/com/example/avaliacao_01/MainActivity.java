@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void abrirContaActivity(Categoria categoria) {
         Intent intent = new Intent(MainActivity.this, ContaActivity.class);
-        intent.putExtra("NOME_CATEGORIA", categoria.getDescricao());
+        intent.putExtra("CATEGORIA", categoria);
         startActivity(intent);
     }
 
@@ -96,15 +96,31 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.menuDetalharCategoria) {
-            if (posicaoSelecionada != AdapterView.INVALID_POSITION) {
-                Categoria categoria = categorias.get(posicaoSelecionada);
-                abrirContaActivity(categoria);
-            } else {
-                Toast.makeText(this, "Selecione uma categoria na lista primeiro", Toast.LENGTH_SHORT).show();
-            }
+
+        if (posicaoSelecionada == AdapterView.INVALID_POSITION) {
+            Toast.makeText(this, "Selecione uma categoria na lista primeiro", Toast.LENGTH_SHORT).show();
+
             return true;
         }
+
+        Categoria categoria = categorias.get(posicaoSelecionada);
+
+        if (item.getItemId() == R.id.menuDetalharCategoria) {
+
+            abrirContaActivity(categoria);
+            return true;
+
+        } else if (item.getItemId() == R.id.menuEditarCategoria) {
+
+            mostrarDialogoEditar(categoria, posicaoSelecionada);
+            return true;
+
+        } else if (item.getItemId() == R.id.menuRemoverCategoria) {
+
+            mostrarDialogoRemover(posicaoSelecionada);
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

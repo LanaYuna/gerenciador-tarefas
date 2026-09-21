@@ -47,9 +47,7 @@ public class Conta implements Serializable {
         return paga;
     }
 
-    public void setPaga(boolean paga) {
-        this.paga = paga;
-    }
+    public void setPaga(boolean paga) { this.paga = paga; }
 
     public Categoria getCategoria() { return categoria; }
     public void setCategoria(Categoria categoria) { this.categoria = categoria; }

@@ -4,6 +4,9 @@
         android:id="@+id/menuEditarConta"
         android:title="Editar conta" />
     <item
+        android:id="@+id/menuMarcarPaga"
+        android:title="Marcar como paga"/>
+    <item
         android:id="@+id/menuRemoverConta"
         android:title="Remover conta" />
 </menu>
