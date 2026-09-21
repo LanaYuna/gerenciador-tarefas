@@ -33,14 +33,30 @@ public class Categoria implements Serializable {
         return this.contas.size();
     }
 
-    public double getValorTotal(){ return }
+    public double getValorTotal(){
+        int tot = 0;
+
+        for(Conta conta : contas){
+            tot += conta.getValor();
+        }
+
+        return tot;
+    }
 
     public double getTotalPago(){
-        return
+        int tot = 0;
+
+        for(Conta conta : contas){
+            if(conta.isPaga()){
+                tot += conta.getValor();
+            }
+        }
+
+        return tot;
     }
 
     public double getRestante(){
-        return
+        return getValorTotal() - getTotalPago();
     }
 
 }
