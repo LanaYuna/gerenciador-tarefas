@@ -168,7 +168,6 @@ public class ContaActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
 
                 Toast.makeText(this, "Conta marcada como paga", Toast.LENGTH_SHORT).show();
-
                 return true;
 
             case 3:
@@ -200,8 +199,7 @@ public class ContaActivity extends AppCompatActivity {
         vencimento.setHint("Vencimento");
         vencimento.setInputType(android.text.InputType.TYPE_CLASS_DATETIME);
 
-        SimpleDateFormat formato =
-                new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
         vencimento.setText(formato.format(conta.getVencimento()));
 
