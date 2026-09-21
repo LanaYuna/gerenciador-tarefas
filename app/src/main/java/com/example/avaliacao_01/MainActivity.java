@@ -29,8 +29,6 @@ public class MainActivity extends AppCompatActivity {
     EditText edCategoria;
     ArrayList<Categoria> categorias = new ArrayList<>();
     ArrayAdapter<Categoria> adapter;
-
-    // Guarda a posição do item selecionado na lista para o menu superior
     private int posicaoSelecionada = AdapterView.INVALID_POSITION;
 
     @Override
@@ -90,9 +88,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // ==========================================
-    // 1. MENU SUPERIOR (OptionsMenu)
-    // ==========================================
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -101,8 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.action_detalhar) {
-            // FORMA 2: Seleção + toque no menu
+        if (item.getItemId() == R.id.menuDetalharCategoria) {
             if (posicaoSelecionada != AdapterView.INVALID_POSITION) {
                 Categoria categoria = categorias.get(posicaoSelecionada);
                 abrirContaActivity(categoria);
@@ -114,9 +108,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // ==========================================
-    // 2. MENU DE CONTEXTO (Clique longo na lista)
-    // ==========================================
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -143,9 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case 3: // Remover
-                categorias.remove(info.position);
-                adapter.notifyDataSetChanged();
-                Toast.makeText(this, "Categoria removida", Toast.LENGTH_SHORT).show();
+                mostrarDialogoRemover(info.position);
                 return true;
 
             default:
@@ -153,7 +142,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // Caixa de diálogo (AlertDialog) para edição do nome da categoria
     private void mostrarDialogoEditar(Categoria categoria, int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Editar Categoria");
@@ -175,5 +163,20 @@ public class MainActivity extends AppCompatActivity {
 
         builder.setNegativeButton("Cancelar", (dialog, which) -> dialog.cancel());
         builder.show();
+    }
+
+    private void mostrarDialogoRemover(int position){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Tem certeza que deseja remover?");
+
+        builder.setPositiveButton("Sim", (dialog, which) -> {
+            categorias.remove(position);
+            adapter.notifyDataSetChanged();
+            Toast.makeText(this, "Categoria removida", Toast.LENGTH_SHORT).show();
+        });
+
+        builder.setNegativeButton("Não", (dialog, which) -> dialog.cancel());
+        builder.show();
+
     }
 }

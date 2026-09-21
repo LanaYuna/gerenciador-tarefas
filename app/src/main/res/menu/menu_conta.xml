@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menuEditarConta"
-        android:title="@string/editarConta" />
+        android:title="Editar conta" />
     <item
         android:id="@+id/menuRemoverConta"
-        android:title="@string/removerConta" />
+        android:title="Remover conta" />
 </menu>

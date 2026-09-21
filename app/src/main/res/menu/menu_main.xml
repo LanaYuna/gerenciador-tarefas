@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_detalhar"
-        android:title="Detalhar Categoria Selecionada"
+        android:id="@+id/menuDetalharCategoria"
+        android:title="Detalhar categoria"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/menuEditarCategoria"
-        android:title="@string/editarCategoria" />
+        android:title="Editar categoria" />
     <item
         android:id="@+id/menuRemoverCategoria"
-        android:title="@string/removerCategoria" />
+        android:title="Remover categoria" />
 </menu>

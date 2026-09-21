@@ -1,6 +1,7 @@
 package com.example.avaliacao_01;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -51,5 +52,11 @@ public class ContaActivity extends AppCompatActivity {
                 Toast.makeText(ContaActivity.this, "Preencha todos os campos!", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_conta, menu);
+        return true;
     }
 }

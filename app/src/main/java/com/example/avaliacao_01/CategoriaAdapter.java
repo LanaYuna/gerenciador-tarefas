@@ -27,11 +27,11 @@ public class CategoriaAdapter extends ArrayAdapter<Categoria> {
 
         Categoria categoria = getItem(position);
 
-        TextView tvDescricao = convertView.findViewById(R.id.tv_descricao_categoria);
-        TextView tvQuantidade = convertView.findViewById(R.id.tv_quantidade);
-        TextView tvValorTotal = convertView.findViewById(R.id.tv_valor_total);
-        TextView tvTotalPago = convertView.findViewById(R.id.tv_total_pago);
-        TextView tvRestante = convertView.findViewById(R.id.tv_restante);
+        TextView tvDescricao = convertView.findViewById(R.id.tvDescricaoCategoria);
+        TextView tvQuantidade = convertView.findViewById(R.id.tvQuantidade);
+        TextView tvValorTotal = convertView.findViewById(R.id.tvValorTotal);
+        TextView tvTotalPago = convertView.findViewById(R.id.tvTotalPago);
+        TextView tvRestante = convertView.findViewById(R.id.tvRestante);
 
         tvDescricao.setText(categoria.getDescricao());
 

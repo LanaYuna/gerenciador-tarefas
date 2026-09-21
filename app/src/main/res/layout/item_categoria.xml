@@ -6,7 +6,7 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/tv_descricao_categoria"
+        android:id="@+id/tvDescricaoCategoria"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Casa"
@@ -14,28 +14,28 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/tv_quantidade"
+        android:id="@+id/tvQuantidade"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Quantidade: 5"
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/tv_valor_total"
+        android:id="@+id/tvValorTotal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Total: R$ 2.000,00"
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/tv_total_pago"
+        android:id="@+id/tvTotalPago"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Pago: R$ 1.200,00"
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/tv_restante"
+        android:id="@+id/tvRestante"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Restante: R$ 800,00"

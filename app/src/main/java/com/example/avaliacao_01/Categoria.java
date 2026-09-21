@@ -28,4 +28,19 @@ public class Categoria implements Serializable {
     public void adicionarConta(Conta conta) {
         this.contas.add(conta);
     }
+
+    public int getQuantidadeContas(){
+        return this.contas.size();
+    }
+
+    public double getValorTotal(){ return }
+
+    public double getTotalPago(){
+        return
+    }
+
+    public double getRestante(){
+        return
+    }
+
 }
