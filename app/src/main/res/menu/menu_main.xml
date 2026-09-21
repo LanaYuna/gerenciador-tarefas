@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_detalhar"
+        android:title="Detalhar Categoria Selecionada"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menuEditarCategoria"
+        android:title="@string/editarCategoria" />
+    <item
+        android:id="@+id/menuRemoverCategoria"
+        android:title="@string/removerCategoria" />
+</menu>

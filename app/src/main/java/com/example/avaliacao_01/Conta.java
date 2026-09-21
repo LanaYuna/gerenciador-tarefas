@@ -10,6 +10,15 @@ public class Conta implements Serializable {
     private boolean paga = false;
     private Categoria categoria;
 
+
+    public Conta(String descricao, double valor, Date vencimento, Categoria categoria) {
+        this.descricao = descricao;
+        this.vencimento = vencimento;
+        this.valor = valor;
+        this.categoria = categoria;
+        this.paga = false;
+    }
+
     public String getDescricao() {
         return descricao;
     }
@@ -41,5 +50,8 @@ public class Conta implements Serializable {
     public void setPaga(boolean paga) {
         this.paga = paga;
     }
+
+    public Categoria getCategoria() { return categoria; }
+    public void setCategoria(Categoria categoria) { this.categoria = categoria; }
 
 }

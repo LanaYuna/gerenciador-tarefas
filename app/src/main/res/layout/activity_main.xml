@@ -15,13 +15,14 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/tv_categoria"
+            android:id="@+id/tvCategoria"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:text="Categoria" />
 
         <EditText
-            android:id="@+id/ed_categRemove-Item -Recurse -Force .gitoria"
+            android:id="@+id/edCategoria"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -29,7 +30,7 @@
             />
 
         <Button
-            android:id="@+id/btn_adicionar"
+            android:id="@+id/btnAdicionar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="adicionar"
@@ -38,13 +39,14 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tvContasAgrupadas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Contas Agrupadas"/>
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="0sp"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:id="@+id/lista"/>
 

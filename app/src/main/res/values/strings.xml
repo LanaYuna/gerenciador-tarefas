@@ -1,3 +1,34 @@
 <resources>
     <string name="app_name">Gerenciador de Tarefas</string>
+    <string name="tvCategoria">Categorias</string>
+    <string name="tvContasAgrupadas">Contas agrupadas</string>
+    <string name="btnAdicionar">Adicionar</string>
+    <string name="total">Total</string>
+    <string name="pago">Pago</string>
+    <string name="a_pagar">A pagar</string>
+    <string name="contas">Contas</string>
+    <string name="descricao">Descrição</string>
+    <string name="valor">Valor</string>
+    <string name="vencimento">Vencimento</string>
+    <string name="paga">Paga</string>
+    <string name="ok">OK</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="salvar">Salvar</string>
+    <string name="editar">Editar</string>
+    <string name="remover">Remover</string>
+    <string name="marcar_paga">Marcar como paga</string>
+    <string name="editar_categoria">Editar categoria</string>
+    <string name="remover_categoria">Remover categoria</string>
+    <string name="editar_conta">Editar conta</string>
+    <string name="nova_descricao">Nova descrição</string>
+    <string name="confirmar_remocao">Confirmar remoção</string>
+    <string name="categoria_vazia">Digite uma descrição para a categoria.</string>
+    <string name="nenhuma_categoria">Não há categorias.</string>
+    <string name="preencha_dados">Preencha a descrição e o valor.</string>
+    <string name="valor_invalido">Valor inválido.</string>
+    <string name="contas_quantidade">%1$d contas</string>
+    <string name="confirmar_categoria">Remover a categoria "%1$s" e suas contas?</string>
+    <string name="confirmar_conta">Remover a conta "%1$s"?</string>
+    <string name="menuEditarCategoria">Editar categoria"?</string>
+
 </resources>
