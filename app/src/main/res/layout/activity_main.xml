@@ -16,44 +16,51 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvCategoria"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="@string/categorias" />
+
+            <EditText
+                android:id="@+id/edCategoria"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="text"
+                />
+
+            <Button
+                android:id="@+id/btnAdicionar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="adicionar"
+                android:text="@string/adicionar" />
+
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/tvCategoria"
+            android:id="@+id/tvContasAgrupadas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="@string/categorias" />
+            android:text="@string/contasAgrupadas"/>
 
-        <EditText
-            android:id="@+id/edCategoria"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:inputType="text"
-            />
-
-        <Button
-            android:id="@+id/btnAdicionar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="adicionar"
-            android:text="@string/adicionar" />
+            android:id="@+id/lista"/>
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/tvContasAgrupadas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/contasAgrupadas"/>
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/lista"/>
-
 
 </LinearLayout>

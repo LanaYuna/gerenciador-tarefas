@@ -14,11 +14,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.example.avaliacao_01.Conta;
 import com.example.avaliacao_01.ContaAdapter;
@@ -39,7 +43,14 @@ public class ContaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_conta);
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
 
         categoriaAtual = (Categoria) getIntent().getSerializableExtra("CATEGORIA");
         listaContas = categoriaAtual.getContas();
@@ -121,29 +132,19 @@ public class ContaActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
 
-        if (item.getItemId() == android.R.id.home) {
+        if (id == android.R.id.home) {
             devolverCategoria();
             return true;
-        }
-
-        if (posicaoSelecionada == AdapterView.INVALID_POSITION) {
-            Toast.makeText(this, "Selecione uma conta primeiro", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.menuEditarConta) {
+            editarConta();
             return true;
-        }
-
-        Conta conta = listaContas.get(posicaoSelecionada);
-
-        if (item.getItemId() == R.id.menuEditarConta) {
-            mostrarDialogoEditar(conta, posicaoSelecionada);
+        } else if (id == R.id.menuMarcarPaga) {
+            marcarContaComoPaga();
             return true;
-        } else if (item.getItemId() == R.id.menuMarcarPaga) {
-            conta.setPaga(true);
-            adapter.notifyDataSetChanged();
-            Toast.makeText(this, "Conta marcada como paga", Toast.LENGTH_SHORT).show();
-            return true;
-        } else if (item.getItemId() == R.id.menuRemoverConta) {
-            mostrarDialogoRemover(conta, posicaoSelecionada);
+        } else if (id == R.id.menuRemoverConta) {
+            removerConta();
             return true;
         }
 
@@ -283,6 +284,68 @@ public class ContaActivity extends AppCompatActivity {
 
         setResult(RESULT_OK, intent);
         finish();
+    }
+    private void editarConta() {
+        if (listaContas.isEmpty()) {
+            Toast.makeText(this, "Nenhuma conta cadastrada", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String[] nomes = new String[listaContas.size()];
+        for (int i = 0; i < listaContas.size(); i++) {
+            nomes[i] = listaContas.get(i).getDescricao();
+        }
+
+        new AlertDialog.Builder(this)
+                .setTitle("Selecionar Conta para Editar")
+                .setItems(nomes, (dialog, which) -> {
+                    Conta contaSelecionada = listaContas.get(which);
+                    mostrarDialogoEditar(contaSelecionada, which);
+                })
+                .show();
+    }
+
+    private void marcarContaComoPaga() {
+        if (listaContas.isEmpty()) {
+            Toast.makeText(this, "Nenhuma conta cadastrada", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String[] nomes = new String[listaContas.size()];
+        for (int i = 0; i < listaContas.size(); i++) {
+            nomes[i] = listaContas.get(i).getDescricao();
+        }
+
+        new AlertDialog.Builder(this)
+                .setTitle("Selecionar Conta para Marcar como Paga")
+                .setItems(nomes, (dialog, which) -> {
+                    Conta conta = listaContas.get(which);
+                    conta.setPaga(true);
+                    adapter.notifyDataSetChanged();
+                    Toast.makeText(this, "Conta marcada como paga", Toast.LENGTH_SHORT).show();
+                })
+                .show();
+    }
+
+
+    private void removerConta() {
+        if (listaContas.isEmpty()) {
+            Toast.makeText(this, "Nenhuma conta cadastrada", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String[] nomes = new String[listaContas.size()];
+        for (int i = 0; i < listaContas.size(); i++) {
+            nomes[i] = listaContas.get(i).getDescricao();
+        }
+
+        new AlertDialog.Builder(this)
+                .setTitle("Selecionar Conta para Remover")
+                .setItems(nomes, (dialog, which) -> {
+                    Conta contaSelecionada = listaContas.get(which);
+                    mostrarDialogoRemover(contaSelecionada, which);
+                })
+                .show();
     }
 
 }
