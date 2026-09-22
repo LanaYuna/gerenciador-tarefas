@@ -1,5 +1,6 @@
 package com.example.avaliacao_01;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -10,11 +11,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.avaliacao_01.Conta;
 import com.example.avaliacao_01.ContaAdapter;
@@ -27,10 +31,9 @@ import java.util.Date;
 import java.util.Locale;
 
 public class ContaActivity extends AppCompatActivity {
-
-    private ArrayList<Conta> listaContas = new ArrayList<>();
     private ContaAdapter adapter;
     private Categoria categoriaAtual;
+    private ArrayList<Conta> listaContas;
     private int posicaoSelecionada = AdapterView.INVALID_POSITION;
 
     @Override
@@ -39,12 +42,26 @@ public class ContaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_conta);
 
         categoriaAtual = (Categoria) getIntent().getSerializableExtra("CATEGORIA");
+        listaContas = categoriaAtual.getContas();
 
         EditText etDescricao = findViewById(R.id.etDescricao);
         EditText etValor = findViewById(R.id.etValor);
         EditText etVencimento = findViewById(R.id.etVencimento);
         Button btnOk = findViewById(R.id.btnOk);
         ListView lvDespesas = findViewById(R.id.lvDespesas);
+        TextView tvTituloCategoria = findViewById(R.id.tvTituloCategoria);
+
+        androidx.appcompat.widget.Toolbar toolbar =
+                findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+
+        tvTituloCategoria.setText(
+                getString(
+                        R.string.despesasDe,
+                        categoriaAtual.getDescricao()
+                )
+        );
 
         adapter = new ContaAdapter(this, listaContas);
         lvDespesas.setAdapter(adapter);
@@ -55,6 +72,12 @@ public class ContaActivity extends AppCompatActivity {
             posicaoSelecionada = position;
         });
 
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                devolverCategoria();
+            }
+        });
 
         btnOk.setOnClickListener(v -> {
 
@@ -71,14 +94,9 @@ public class ContaActivity extends AppCompatActivity {
 
                     Date vencimento = formato.parse(vencimentoText);
 
-                    Conta novaConta = new Conta(
-                            descricao,
-                            valor,
-                            vencimento,
-                            categoriaAtual
-                    );
+                    Conta novaConta = new Conta (descricao, valor, vencimento, categoriaAtual);
 
-                    listaContas.add(novaConta);
+                    categoriaAtual.adicionarConta(novaConta);
                     adapter.notifyDataSetChanged();
                     etDescricao.setText("");
                     etValor.setText("");
@@ -104,8 +122,12 @@ public class ContaActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if (posicaoSelecionada == AdapterView.INVALID_POSITION) {
+        if (item.getItemId() == android.R.id.home) {
+            devolverCategoria();
+            return true;
+        }
 
+        if (posicaoSelecionada == AdapterView.INVALID_POSITION) {
             Toast.makeText(this, "Selecione uma conta primeiro", Toast.LENGTH_SHORT).show();
             return true;
         }
@@ -113,20 +135,14 @@ public class ContaActivity extends AppCompatActivity {
         Conta conta = listaContas.get(posicaoSelecionada);
 
         if (item.getItemId() == R.id.menuEditarConta) {
-
             mostrarDialogoEditar(conta, posicaoSelecionada);
             return true;
-
         } else if (item.getItemId() == R.id.menuMarcarPaga) {
-
             conta.setPaga(true);
             adapter.notifyDataSetChanged();
-
             Toast.makeText(this, "Conta marcada como paga", Toast.LENGTH_SHORT).show();
             return true;
-
         } else if (item.getItemId() == R.id.menuRemoverConta) {
-
             mostrarDialogoRemover(conta, posicaoSelecionada);
             return true;
         }
@@ -207,8 +223,7 @@ public class ContaActivity extends AppCompatActivity {
         layout.addView(valor);
         layout.addView(vencimento);
 
-        AlertDialog.Builder builder =
-                new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setTitle("Editar Conta");
         builder.setView(layout);
@@ -258,5 +273,16 @@ public class ContaActivity extends AppCompatActivity {
         builder.show();
     }
 
+    private void devolverCategoria() {
+        Intent intent = new Intent();
+
+        intent.putExtra(
+                "CATEGORIA_ATUALIZADA",
+                categoriaAtual
+        );
+
+        setResult(RESULT_OK, intent);
+        finish();
+    }
 
 }

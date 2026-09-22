@@ -34,7 +34,7 @@ public class Categoria implements Serializable {
     }
 
     public double getValorTotal(){
-        int tot = 0;
+        double tot = 0;
 
         for(Conta conta : contas){
             tot += conta.getValor();
@@ -44,7 +44,7 @@ public class Categoria implements Serializable {
     }
 
     public double getTotalPago(){
-        int tot = 0;
+        double tot = 0;
 
         for(Conta conta : contas){
             if(conta.isPaga()){

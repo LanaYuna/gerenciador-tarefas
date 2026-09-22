@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Task Manager</string>
+    <string name="categorias">Categories</string>
+    <string name="contasAgrupadas">Grouped bills</string>
+    <string name="adicionar">Add</string>
+    <string name="total">Total</string>
+    <string name="pago">Paid</string>
+</resources>

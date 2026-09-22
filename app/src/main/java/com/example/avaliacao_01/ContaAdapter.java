@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
@@ -33,7 +35,10 @@ public class ContaAdapter extends ArrayAdapter<Conta> {
 
         if (conta != null) {
             tvNome.setText(conta.getDescricao());
-            tvData.setText(conta.getVencimento());
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+            tvData.setText(formato.format(conta.getVencimento()));
+
             tvValor.setText(String.format(Locale.getDefault(), "R$ %.2f", conta.getValor()));
 
             cbPaga.setOnCheckedChangeListener(null);

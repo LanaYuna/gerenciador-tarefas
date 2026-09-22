@@ -14,6 +14,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,17 +50,19 @@ public class MainActivity extends AppCompatActivity {
         adapter = new CategoriaAdapter(this, categorias);
         lista.setAdapter(adapter);
 
-        // Registra o ListView para ter suporte ao Menu de Contexto (clique longo)
+        androidx.appcompat.widget.Toolbar toolbar =
+                findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+
         registerForContextMenu(lista);
 
-        // FORMA 1: Clique simples para abrir as contas da Categoria via Intent
         lista.setOnItemClickListener((parent, view, position, id) -> {
             posicaoSelecionada = position;
             Categoria categoria = categorias.get(position);
             abrirContaActivity(categoria);
         });
 
-        // Salva a posição selecionada quando o usuário faz clique longo
         lista.setOnItemLongClickListener((parent, view, position, id) -> {
             posicaoSelecionada = position;
             return false; // Retorna false para permitir que o Menu de Contexto abra
@@ -85,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
     private void abrirContaActivity(Categoria categoria) {
         Intent intent = new Intent(MainActivity.this, ContaActivity.class);
         intent.putExtra("CATEGORIA", categoria);
-        startActivity(intent);
+        contaActivityLauncher.launch(intent);
     }
 
     @Override
@@ -96,28 +100,21 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
 
-        if (posicaoSelecionada == AdapterView.INVALID_POSITION) {
-            Toast.makeText(this, "Selecione uma categoria na lista primeiro", Toast.LENGTH_SHORT).show();
+        if (id == R.id.menuDetalharCategoria) {
 
-            return true;
-        }
-
-        Categoria categoria = categorias.get(posicaoSelecionada);
-
-        if (item.getItemId() == R.id.menuDetalharCategoria) {
-
-            abrirContaActivity(categoria);
+            detalharCategoria();
             return true;
 
-        } else if (item.getItemId() == R.id.menuEditarCategoria) {
+        } else if (id == R.id.menuEditarCategoria) {
 
-            mostrarDialogoEditar(categoria, posicaoSelecionada);
+            editarCategoria();
             return true;
 
-        } else if (item.getItemId() == R.id.menuRemoverCategoria) {
+        } else if (id == R.id.menuRemoverCategoria) {
 
-            mostrarDialogoRemover(posicaoSelecionada);
+            removerCategoria();
             return true;
         }
 
@@ -186,13 +183,107 @@ public class MainActivity extends AppCompatActivity {
         builder.setTitle("Tem certeza que deseja remover?");
 
         builder.setPositiveButton("Sim", (dialog, which) -> {
-            categorias.remove(position);
-            adapter.notifyDataSetChanged();
-            Toast.makeText(this, "Categoria removida", Toast.LENGTH_SHORT).show();
+            if (position >= 0 && position < categorias.size()) {
+                categorias.remove(position);
+                adapter.notifyDataSetChanged();
+
+                // Reseta a seleção para não apontar para o item errado
+                lista.clearChoices();
+                posicaoSelecionada = AdapterView.INVALID_POSITION;
+
+                Toast.makeText(this, "Categoria removida", Toast.LENGTH_SHORT).show();
+            }
         });
 
         builder.setNegativeButton("Não", (dialog, which) -> dialog.cancel());
         builder.show();
 
     }
+    private void detalharCategoria() {
+        if (categorias.isEmpty()) {
+            Toast.makeText(this, R.string.nenhumaCategoria, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String[] nomes = new String[categorias.size()];
+        for (int i = 0; i < categorias.size(); i++) {
+            nomes[i] = categorias.get(i).getDescricao();
+        }
+
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.selecionarCategoria) // Crie a string no strings.xml
+                .setItems(nomes, (dialog, which) -> {
+                    posicaoSelecionada = which;
+                    Categoria categoriaSelecionada = categorias.get(which);
+                    abrirContaActivity(categoriaSelecionada);
+                })
+                .show();
+    }
+
+    private void editarCategoria() {
+        if (categorias.isEmpty()) {
+            Toast.makeText(this, R.string.nenhumaCategoria, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String[] nomes = new String[categorias.size()];
+        for (int i = 0; i < categorias.size(); i++) {
+            nomes[i] = categorias.get(i).getDescricao();
+        }
+
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.editarCategoria)
+                .setItems(nomes, (dialog, which) -> {
+                    Categoria categoriaSelecionada = categorias.get(which);
+
+                    mostrarDialogoEditar(categoriaSelecionada, which);
+                })
+                .show();
+    }
+
+    private void removerCategoria() {
+        if (categorias.isEmpty()) {
+            Toast.makeText(this, R.string.nenhumaCategoria, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String[] nomes = new String[categorias.size()];
+        for (int i = 0; i < categorias.size(); i++) {
+            nomes[i] = categorias.get(i).getDescricao();
+        }
+
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.removerCategoria)
+                .setItems(nomes, (dialog, which) -> {
+                    mostrarDialogoRemover(which);
+                })
+                .show();
+    }
+
+    private ActivityResultLauncher<Intent> contaActivityLauncher =
+            registerForActivityResult(
+                    new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+
+                        if (result.getResultCode() == RESULT_OK
+                                && result.getData() != null) {
+
+                            Categoria categoriaAtualizada =
+                                    (Categoria) result.getData()
+                                            .getSerializableExtra("CATEGORIA_ATUALIZADA");
+
+                            if (categoriaAtualizada != null
+                                    && posicaoSelecionada != AdapterView.INVALID_POSITION) {
+
+                                categorias.set(
+                                        posicaoSelecionada,
+                                        categoriaAtualizada
+                                );
+
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+                    }
+            );
+
 }

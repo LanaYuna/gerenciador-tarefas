@@ -1,11 +1,12 @@
 <resources>
     <string name="app_name">Gerenciador de Tarefas</string>
-    <string name="tvCategoria">Categorias</string>
-    <string name="tvContasAgrupadas">Contas agrupadas</string>
-    <string name="btnAdicionar">Adicionar</string>
+    <string name="categorias">Categorias</string>
+    <string name="contasAgrupadas">Contas agrupadas</string>
+    <string name="adicionar">Adicionar</string>
     <string name="total">Total</string>
     <string name="pago">Pago</string>
-    <string name="a_pagar">A pagar</string>
+    <string name="despesasDe">Despesas de %1$s</string>
+    <string name="despesa">Despesa</string>
     <string name="contas">Contas</string>
     <string name="descricao">Descrição</string>
     <string name="valor">Valor</string>
@@ -17,13 +18,14 @@
     <string name="editar">Editar</string>
     <string name="remover">Remover</string>
     <string name="marcar_paga">Marcar como paga</string>
-    <string name="editar_categoria">Editar categoria</string>
-    <string name="remover_categoria">Remover categoria</string>
-    <string name="editar_conta">Editar conta</string>
+    <string name="editarCategoria">Editar categoria</string>
+    <string name="removerCategoria">Remover categoria</string>
+    <string name="editarConta">Editar conta</string>
     <string name="nova_descricao">Nova descrição</string>
     <string name="confirmar_remocao">Confirmar remoção</string>
+    <string name="selecionarCategoria">Selecionar categoria.</string>
     <string name="categoria_vazia">Digite uma descrição para a categoria.</string>
-    <string name="nenhuma_categoria">Não há categorias.</string>
+    <string name="nenhumaCategoria">Não há categorias.</string>
     <string name="preencha_dados">Preencha a descrição e o valor.</string>
     <string name="valor_invalido">Valor inválido.</string>
     <string name="contas_quantidade">%1$d contas</string>
