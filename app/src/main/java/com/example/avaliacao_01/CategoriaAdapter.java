@@ -33,13 +33,15 @@ public class CategoriaAdapter extends ArrayAdapter<Categoria> {
         TextView tvTotalPago = convertView.findViewById(R.id.tvTotalPago);
         TextView tvRestante = convertView.findViewById(R.id.tvRestante);
 
-        tvDescricao.setText(categoria.getDescricao());
-        Context context = parent.getContext();
+        if(categoria != null){
+            tvDescricao.setText(categoria.getDescricao());
+            Context context = parent.getContext();
 
-        tvQuantidade.setText(context.getString(R.string.quantidadeAdapter, categoria.getQuantidadeContas()));
-        tvValorTotal.setText(context.getString(R.string.valorAdapter, categoria.getValorTotal()));
-        tvTotalPago.setText(context.getString(R.string.pagoAdapter, categoria.getTotalPago()));
-        tvRestante.setText(context.getString(R.string.restanteAdapter, categoria.getRestante()));
+            tvQuantidade.setText(context.getString(R.string.quantidadeAdapter, categoria.getQuantidadeContas()));
+            tvValorTotal.setText(context.getString(R.string.valorAdapter, categoria.getValorTotal()));
+            tvTotalPago.setText(context.getString(R.string.pagoAdapter, categoria.getTotalPago()));
+            tvRestante.setText(context.getString(R.string.restanteAdapter, categoria.getRestante()));
+        }
 
         return convertView;
     }

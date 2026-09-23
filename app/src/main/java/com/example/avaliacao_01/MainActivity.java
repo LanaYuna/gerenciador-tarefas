@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
                 Toast.makeText(MainActivity.this, R.string.categoriaAtualizada, Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(MainActivity.this, R.string.valorInvalido, Toast.LENGTH_SHORT).show(); // se for nulo
+                Toast.makeText(MainActivity.this, R.string.valorInvalido, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -187,7 +187,6 @@ public class MainActivity extends AppCompatActivity {
                 categorias.remove(position);
                 adapter.notifyDataSetChanged();
 
-                // Reseta a seleção para não apontar para o item errado
                 lista.clearChoices();
                 posicaoSelecionada = AdapterView.INVALID_POSITION;
 
