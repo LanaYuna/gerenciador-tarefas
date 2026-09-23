@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         String categoria = edCategoria.getText().toString();
 
         if (categoria.isBlank()) {
-            Toast.makeText(this, "Informe a categoria", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.informeCategoria, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -124,10 +124,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        menu.setHeaderTitle("Opções da Categoria");
-        menu.add(0, 1, 0, "Detalhar contas (Abrir)");
-        menu.add(0, 2, 1, "Editar Categoria");
-        menu.add(0, 3, 2, "Remover Categoria");
+        menu.setHeaderTitle(R.string.opcoesCategoria);
+        menu.add(0, 1, 0, R.string.detalharCategoria);
+        menu.add(0, 2, 1, R.string.editarCategoria);
+        menu.add(0, 3, 2, R.string.removerCategoria);
     }
 
     @Override
@@ -157,32 +157,32 @@ public class MainActivity extends AppCompatActivity {
 
     private void mostrarDialogoEditar(Categoria categoria, int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Editar Categoria");
+        builder.setTitle(R.string.editarCategoria);
 
         final EditText input = new EditText(this);
         input.setText(categoria.getDescricao());
         builder.setView(input);
 
-        builder.setPositiveButton("Salvar", (dialog, which) -> {
+        builder.setPositiveButton(R.string.salvar, (dialog, which) -> {
             String novoNome = input.getText().toString().trim();
             if (!novoNome.isEmpty()) {
                 categoria.setDescricao(novoNome);
                 adapter.notifyDataSetChanged();
-                Toast.makeText(MainActivity.this, "Categoria atualizada", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, R.string.categoriaAtualizada, Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(MainActivity.this, "O nome não pode ser vazio", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, R.string.valorInvalido, Toast.LENGTH_SHORT).show(); // se for nulo
             }
         });
 
-        builder.setNegativeButton("Cancelar", (dialog, which) -> dialog.cancel());
+        builder.setNegativeButton(R.string.cancelar, (dialog, which) -> dialog.cancel());
         builder.show();
     }
 
     private void mostrarDialogoRemover(int position){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Tem certeza que deseja remover?");
+        builder.setTitle(R.string.confirmarRemocao);
 
-        builder.setPositiveButton("Sim", (dialog, which) -> {
+        builder.setPositiveButton(R.string.sim, (dialog, which) -> {
             if (position >= 0 && position < categorias.size()) {
                 categorias.remove(position);
                 adapter.notifyDataSetChanged();
@@ -191,11 +191,11 @@ public class MainActivity extends AppCompatActivity {
                 lista.clearChoices();
                 posicaoSelecionada = AdapterView.INVALID_POSITION;
 
-                Toast.makeText(this, "Categoria removida", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.categoriaRemovida, Toast.LENGTH_SHORT).show();
             }
         });
 
-        builder.setNegativeButton("Não", (dialog, which) -> dialog.cancel());
+        builder.setNegativeButton(R.string.nao, (dialog, which) -> dialog.cancel());
         builder.show();
 
     }
@@ -211,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         new AlertDialog.Builder(this)
-                .setTitle(R.string.selecionarCategoria) // Crie a string no strings.xml
+                .setTitle(R.string.selecionarCategoria)
                 .setItems(nomes, (dialog, which) -> {
                     posicaoSelecionada = which;
                     Categoria categoriaSelecionada = categorias.get(which);

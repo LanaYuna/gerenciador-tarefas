@@ -114,12 +114,12 @@ public class ContaActivity extends AppCompatActivity {
                     etVencimento.setText("");
 
                 } catch (ParseException e) {
-                    Toast.makeText(this, "Data inválida. Use dd/MM/yyyy", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.dataInvalida, Toast.LENGTH_SHORT).show();
                 } catch (NumberFormatException e) {
-                    Toast.makeText(this, "Valor inválido", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.valorInvalido ,Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(this, "Preencha todos os campos!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.preencherCampos, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -156,11 +156,11 @@ public class ContaActivity extends AppCompatActivity {
 
         super.onCreateContextMenu(menu, v, menuInfo);
 
-        menu.setHeaderTitle("Opções da Conta");
+        menu.setHeaderTitle(R.string.opcoesConta);
 
-        menu.add(0, 1, 0, "Editar conta");
-        menu.add(0, 2, 1, "Marcar como paga");
-        menu.add(0, 3, 2, "Remover conta");
+        menu.add(0, 1, 0, R.string.editarConta);
+        menu.add(0, 2, 1, R.string.pagarConta);
+        menu.add(0, 3, 2, R.string.removerConta);
     }
 
     @Override
@@ -184,7 +184,7 @@ public class ContaActivity extends AppCompatActivity {
                 conta.setPaga(true);
                 adapter.notifyDataSetChanged();
 
-                Toast.makeText(this, "Conta marcada como paga", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.contaPaga, Toast.LENGTH_SHORT).show();
                 return true;
 
             case 3:
@@ -203,17 +203,17 @@ public class ContaActivity extends AppCompatActivity {
         layout.setPadding(40, 10, 40, 10);
 
         EditText descricao = new EditText(this);
-        descricao.setHint("Descrição");
+        descricao.setHint(R.string.descricao);
         descricao.setText(conta.getDescricao());
 
         EditText valor = new EditText(this);
-        valor.setHint("Valor");
+        valor.setHint(R.string.valor);
         valor.setInputType(android.text.InputType.TYPE_CLASS_NUMBER |
                 android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL);
         valor.setText(String.valueOf(conta.getValor()));
 
         EditText vencimento = new EditText(this);
-        vencimento.setHint("Vencimento");
+        vencimento.setHint(R.string.vencimento);
         vencimento.setInputType(android.text.InputType.TYPE_CLASS_DATETIME);
 
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
@@ -226,10 +226,10 @@ public class ContaActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setTitle("Editar Conta");
+        builder.setTitle(R.string.editarConta);
         builder.setView(layout);
 
-        builder.setPositiveButton("Salvar", (dialog, which) -> {
+        builder.setPositiveButton(R.string.salvar, (dialog, which) -> {
 
             try {
 
@@ -241,15 +241,15 @@ public class ContaActivity extends AppCompatActivity {
 
                 adapter.notifyDataSetChanged();
 
-                Toast.makeText(this, "Conta atualizada", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.contaAtualizada, Toast.LENGTH_SHORT).show();
 
             } catch (Exception e) {
 
-                Toast.makeText(this, "Dados inválidos", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.dadosInvalidos, Toast.LENGTH_SHORT).show();
             }
         });
 
-        builder.setNegativeButton("Cancelar", (dialog, which) -> dialog.cancel()
+        builder.setNegativeButton(R.string.cancelar, (dialog, which) -> dialog.cancel()
         );
 
         builder.show();
@@ -258,17 +258,17 @@ public class ContaActivity extends AppCompatActivity {
     public void mostrarDialogoRemover(Conta conta, int position){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setTitle("Tem certeza que deseja remover esta conta?");
+        builder.setTitle(R.string.confirmarRemocao);
 
-        builder.setPositiveButton("Sim", (dialog, which) -> {
+        builder.setPositiveButton(R.string.sim, (dialog, which) -> {
 
             listaContas.remove(position);
             adapter.notifyDataSetChanged();
 
-            Toast.makeText(this, "Conta removida", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.contaRemovida, Toast.LENGTH_SHORT).show();
         });
 
-        builder.setNegativeButton("Não", (dialog, which) -> dialog.cancel()
+        builder.setNegativeButton(R.string.nao, (dialog, which) -> dialog.cancel()
         );
 
         builder.show();
@@ -287,7 +287,7 @@ public class ContaActivity extends AppCompatActivity {
     }
     private void editarConta() {
         if (listaContas.isEmpty()) {
-            Toast.makeText(this, "Nenhuma conta cadastrada", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.nenhumaConta, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -297,7 +297,7 @@ public class ContaActivity extends AppCompatActivity {
         }
 
         new AlertDialog.Builder(this)
-                .setTitle("Selecionar Conta para Editar")
+                .setTitle(R.string.selecionarContaEditar)
                 .setItems(nomes, (dialog, which) -> {
                     Conta contaSelecionada = listaContas.get(which);
                     mostrarDialogoEditar(contaSelecionada, which);
@@ -307,7 +307,7 @@ public class ContaActivity extends AppCompatActivity {
 
     private void marcarContaComoPaga() {
         if (listaContas.isEmpty()) {
-            Toast.makeText(this, "Nenhuma conta cadastrada", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.nenhumaConta, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -317,12 +317,12 @@ public class ContaActivity extends AppCompatActivity {
         }
 
         new AlertDialog.Builder(this)
-                .setTitle("Selecionar Conta para Marcar como Paga")
+                .setTitle(R.string.selecionarContaMarcarPaga)
                 .setItems(nomes, (dialog, which) -> {
                     Conta conta = listaContas.get(which);
                     conta.setPaga(true);
                     adapter.notifyDataSetChanged();
-                    Toast.makeText(this, "Conta marcada como paga", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.contaPaga, Toast.LENGTH_SHORT).show();
                 })
                 .show();
     }
@@ -330,7 +330,7 @@ public class ContaActivity extends AppCompatActivity {
 
     private void removerConta() {
         if (listaContas.isEmpty()) {
-            Toast.makeText(this, "Nenhuma conta cadastrada", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.nenhumaConta, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -340,7 +340,7 @@ public class ContaActivity extends AppCompatActivity {
         }
 
         new AlertDialog.Builder(this)
-                .setTitle("Selecionar Conta para Remover")
+                .setTitle(R.string.selecionarContaRemover)
                 .setItems(nomes, (dialog, which) -> {
                     Conta contaSelecionada = listaContas.get(which);
                     mostrarDialogoRemover(contaSelecionada, which);
